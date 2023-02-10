@@ -44,6 +44,5 @@ jobs:
         repository: "${{ github.event.repository.name }}"
         login: "${{ secrets.DOCKERHUB_USERNAME }}"
         password: "${{ secrets.DOCKERHUB_PASSWORD }}"
-      outputs:
         image: balapuram/demo-app
         tag: v2
