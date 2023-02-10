@@ -1,4 +1,9 @@
-
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
 name: Java CI with Gradle
 
@@ -13,7 +18,7 @@ permissions:
 
 jobs:
   build:
-
+    environment: dev
     runs-on: ubuntu-latest
 
     steps:
@@ -31,3 +36,14 @@ jobs:
       with:
         name: Package
         path: build/libs
+
+    - uses: cloudposse/github-action-docker-build-push@main
+      with:
+        registry: registry.hub.docker.com
+        organization: "${{ github.event.repository.owner.login }}"
+        repository: "${{ github.event.repository.name }}"
+        login: "${{ secrets.DOCKERHUB_USERNAME }}"
+        password: "${{ secrets.DOCKERHUB_PASSWORD }}"
+      outputs:
+        image: balapuram/demo-app
+        tag: v2
