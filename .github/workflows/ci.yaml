@@ -31,15 +31,10 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Package
-        path: build/libs
-    - uses: mr-smithers-excellent/docker-build-push@v3
+    - uses: mr-smithers-excellent/docker-build-push@v4
       name: Build & push Docker image
       with:
         image: balapuram/demo-app
-        tags: v1
         registry: docker.io
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
